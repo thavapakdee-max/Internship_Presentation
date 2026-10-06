@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Internship — กองพัฒนานักศึกษา</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#155EEF; --sky:#4DA3FF; --navy:#0B1F3A; --ice:#F4F8FF;
+  --white:#fff; --gold:#F5B942; --text:#10233F; --muted:#68788E;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'Prompt',sans-serif;color:var(--text);background:var(--white);overflow:hidden}
+.presentation{height:100vh;overflow-y:auto;scroll-snap-type:y mandatory;scroll-behavior:smooth}
+section{height:100vh;min-height:620px;scroll-snap-align:start;scroll-snap-stop:always;position:relative;overflow:hidden}
+h1,h2,h3,p{margin:0}
+.nav{position:fixed;z-index:20;right:28px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:11px}
+.nav button{width:8px;height:8px;border:0;border-radius:50%;background:#b9c7d8;padding:0;cursor:pointer;transition:.35s}
+.nav button.active{height:30px;border-radius:8px;background:var(--blue)}
+.brand{position:fixed;z-index:20;left:34px;top:28px;font-size:12px;letter-spacing:2px;font-weight:600;color:var(--navy)}
+.page-no{position:absolute;left:7%;top:9%;font-size:clamp(60px,9vw,150px);font-weight:700;line-height:.8;color:rgba(21,94,239,.07);pointer-events:none}
+.eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:18px}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.active .reveal{opacity:1;transform:none}
+.btn{display:inline-flex;align-items:center;gap:10px;margin-top:28px;padding:12px 18px;border-radius:30px;background:var(--blue);color:white;text-decoration:none;font-size:13px;box-shadow:0 10px 30px rgba(21,94,239,.22)}
+.cover{background:linear-gradient(135deg,#fff 0%,#f7fbff 52%,#eaf4ff 100%);display:grid;grid-template-columns:1.08fr .92fr;align-items:center;padding:8vw}
+.cover:after{content:"";position:absolute;width:520px;height:520px;border-radius:50%;background:rgba(77,163,255,.14);right:-150px;top:-180px;filter:blur(2px)}
+.cover-copy{position:relative;z-index:2}
+.cover h1{font-family:'Kanit',sans-serif;font-size:clamp(48px,6.5vw,98px);line-height:1.02;font-weight:600;color:var(--navy);max-width:850px}
+.cover h1 span{color:var(--blue)}
+.cover-sub{font-size:18px;color:var(--muted);margin-top:22px;max-width:600px;line-height:1.9}
+.team-mini{display:flex;flex-wrap:wrap;gap:8px;margin-top:34px;max-width:680px}
+.team-mini span{background:white;border:1px solid #e0e9f5;border-radius:30px;padding:8px 13px;font-size:11px;color:#42536a}
+.cover-art{height:72vh;border-radius:34px;overflow:hidden;position:relative;box-shadow:0 28px 70px rgba(21,50,90,.18);background:linear-gradient(145deg,var(--blue),var(--sky))}
+.cover-art:before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(11,31,58,.1),rgba(11,31,58,.48))}
+.cover-art .fake-photo{position:absolute;inset:9%;border:1px solid rgba(255,255,255,.45);border-radius:24px;display:flex;align-items:flex-end;padding:28px;color:white;background:radial-gradient(circle at 30% 25%,rgba(255,255,255,.45),transparent 25%),linear-gradient(145deg,#2e83ff,#123b78)}
+.cover-art strong{font-family:'Kanit';font-size:30px;line-height:1.1;max-width:260px}
+.split{display:grid;grid-template-columns:44% 56%;height:100%}
+.copy{padding:10vw 6vw;display:flex;flex-direction:column;justify-content:center}
+.copy h2{font-family:'Kanit';font-size:clamp(38px,4.8vw,72px);line-height:1.08;color:var(--navy);font-weight:600}
+.copy p{font-size:16px;color:var(--muted);line-height:2;margin-top:25px;max-width:560px}
+.photo-grid{padding:7vw 8vw 7vw 3vw;display:grid;grid-template-columns:1.25fr .75fr;grid-template-rows:1fr .72fr;gap:14px;background:var(--ice)}
+.photo{border-radius:22px;overflow:hidden;background:linear-gradient(135deg,#dcecff,#8dc3ff);position:relative}
+.photo.large{grid-row:1/3}
+.photo:after{content:"PHOTO";position:absolute;bottom:18px;left:20px;color:rgba(255,255,255,.75);font-size:10px;letter-spacing:3px}
+.team-section{background:var(--navy);color:white;padding:8vw;display:flex;flex-direction:column;justify-content:center}
+.team-section .page-no{color:rgba(255,255,255,.05)}
+.team-section h2{font-family:'Kanit';font-size:clamp(42px,5vw,76px);font-weight:500}
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:42px}
+.person{border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:25px;background:rgba(255,255,255,.035);transition:.35s}
+.person:hover{transform:translateY(-8px);border-color:rgba(77,163,255,.65)}
+.person .num{color:var(--sky);font-size:12px;letter-spacing:2px}
+.person h3{font-family:'Kanit';font-weight:500;font-size:20px;margin-top:40px}
+.person p{font-size:12px;color:#9fb0c6;margin-top:5px}
+.activity{background:#fff}
+.activity .copy{padding-left:9vw}
+.activity:nth-of-type(even){background:var(--ice)}
+.activity .photo-grid{background:transparent}
+.activity h2 span{color:var(--blue)}
+.quote{font-family:'Kanit';font-size:20px;color:var(--blue);margin-top:25px;line-height:1.6}
+.full-photo{background:var(--navy);color:white;display:flex;align-items:center}
+.full-photo .visual{position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,31,58,.93) 0%,rgba(11,31,58,.56) 48%,rgba(11,31,58,.15) 100%),linear-gradient(135deg,#155eef,#0b1f3a)}
+.full-photo .content{position:relative;z-index:2;padding:9vw;max-width:800px}
+.full-photo h2{font-family:'Kanit';font-size:clamp(46px,6vw,90px);line-height:1.02;font-weight:500}
+.full-photo p{margin-top:25px;line-height:2;color:#d5e0ee;max-width:580px}
+.design{padding:8vw;background:#fff}
+.design h2{font-family:'Kanit';font-size:clamp(44px,6vw,90px);color:var(--navy);max-width:850px}
+.design-board{height:48vh;margin-top:34px;border-radius:28px;background:linear-gradient(135deg,#eef6ff,#fff);border:1px solid #dce8f7;position:relative;overflow:hidden}
+.design-card{position:absolute;background:white;box-shadow:0 25px 60px rgba(11,31,58,.13);border-radius:16px}
+.design-card.one{width:54%;height:76%;left:6%;top:11%;transform:rotate(-2deg)}
+.design-card.two{width:40%;height:64%;right:6%;bottom:9%;transform:rotate(4deg)}
+.design-card:after{content:"DESIGN / WORK";position:absolute;left:22px;bottom:18px;font-size:11px;letter-spacing:2px;color:var(--blue)}
+.skills{padding:8vw;background:var(--ice)}
+.skills h2{font-family:'Kanit';font-size:clamp(44px,5.5vw,80px);color:var(--navy)}
+.skill-list{margin-top:42px;display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.skill{background:white;border-radius:20px;padding:28px;border:1px solid #e1eaf5}
+.skill b{font-family:'Kanit';font-size:26px;color:var(--blue);display:block}
+.skill span{font-size:13px;color:var(--muted);line-height:1.8}
+.memories{padding:7vw;background:white}
+.memories h2{font-family:'Kanit';font-size:clamp(42px,5vw,76px);color:var(--navy)}
+.memory-wall{margin-top:30px;height:60vh;display:grid;grid-template-columns:1.1fr .7fr .9fr;grid-template-rows:1fr .8fr;gap:12px}
+.memory{border-radius:18px;background:linear-gradient(135deg,#cfe6ff,#70b1ff);overflow:hidden}
+.memory:first-child{grid-row:1/3}.memory:nth-child(4){grid-column:2/4}
+.closing{background:linear-gradient(135deg,var(--blue),#0b1f3a);color:white;display:flex;align-items:center;justify-content:center;text-align:center;padding:30px}
+.closing h2{font-family:'Kanit';font-size:clamp(70px,11vw,170px);font-weight:600;line-height:.9}
+.closing p{margin-top:25px;color:#d9e7f8;font-size:16px}
+.closing .names{margin-top:38px;font-size:12px;letter-spacing:1px;color:#b8cee8}
+.hint{position:fixed;z-index:20;bottom:26px;left:50%;transform:translateX(-50%);font-size:10px;letter-spacing:2px;color:#7890ab}
+@media(max-width:850px){
+  section{min-height:680px}
+  .cover{grid-template-columns:1fr;padding:24vw 8vw}
+  .cover-art{display:none}
+  .split{grid-template-columns:1fr}
+  .photo-grid{padding:3vw 8vw 8vw;height:45vh}
+  .copy{padding:16vw 8vw 5vw}
+  .team-grid{grid-template-columns:1fr 1fr}
+  .team-section{padding:14vw 8vw}
+  .nav{right:14px}
+  .brand{left:18px}
+  .skill-list{grid-template-columns:1fr}
+}
+
+.img{width:100%;height:100%;display:block;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.2,1);cursor:zoom-in}
+.photo:hover .img,.memory:hover .img{transform:scale(1.045)}
+.cover-art .img{position:absolute;inset:0;object-fit:cover}
+.cover-art:before{z-index:1}
+.cover-art .fake-photo{z-index:2;background:linear-gradient(145deg,rgba(21,94,239,.08),rgba(11,31,58,.42));}
+.lightbox{position:fixed;inset:0;background:rgba(5,15,28,.92);z-index:100;display:none;align-items:center;justify-content:center;padding:5vw}
+.lightbox.show{display:flex}
+.lightbox img{max-width:92vw;max-height:88vh;object-fit:contain;border-radius:12px;box-shadow:0 30px 90px rgba(0,0,0,.4)}
+.lightbox button{position:absolute;right:28px;top:22px;width:44px;height:44px;border:1px solid rgba(255,255,255,.3);border-radius:50%;background:rgba(255,255,255,.08);color:white;font-size:24px;cursor:pointer}
+
+/* Full-screen tuning: every section stays inside one viewport */
+section{height:100vh;min-height:0;box-sizing:border-box}
+.design{height:100vh;padding:6.5vh 8vw 4.5vh;display:flex;flex-direction:column;justify-content:center}
+.design h2{font-size:clamp(42px,5vw,76px);line-height:1}
+.design-text{margin-top:14px!important;line-height:1.7!important;font-size:14px}
+.design-board{height:40vh;min-height:250px;margin-top:22px;flex:0 0 auto}
+.design-card.one{width:50%;height:74%;left:7%;top:12%}
+.design-card.two{width:36%;height:60%;right:8%;bottom:10%}
+.photo-grid{min-height:0}
+.copy{min-height:0}
+.memories{padding:6vh 7vw}
+.memory-wall{height:56vh}
+.skills{padding:7vh 8vw}
+.skill-list{margin-top:30px}
+
+</style>
+</head>
+<body>
+<div class="brand">STUDENT DEVELOPMENT DIVISION / INTERNSHIP</div>
+<div class="nav" id="nav"></div>
+<div class="hint">SCROLL TO EXPLORE</div>
+
+<main class="presentation" id="presentation">
+
+<section class="cover" data-title="Opening">
+  <div class="cover-copy reveal">
+    <div class="eyebrow">Internship Presentation · 2026</div>
+    <h1>กองพัฒนานักศึกษา<br><span>ประสบการณ์จากงานจริง</span></h1>
+    <p class="cover-sub">บันทึกการเรียนรู้ การทำงาน และกิจกรรมตลอดช่วงเวลาการฝึกงาน — จากสิ่งที่ได้ลงมือทำ สู่ประสบการณ์ที่นำไปต่อยอดได้จริง</p>
+    <div class="team-mini"><span>กวีวัธน์ ศรีทอง</span><span>ศาสตรา คงทับ</span><span>ธนายุทธ สีสุทธินา</span><span>ธันวา ภักดี</span></div>
+  </div>
+  <div class="cover-art reveal"><img class="img" src="images/18__2_2569.jpg" alt="ภาพรวมกิจกรรมฝึกงาน"><div class="fake-photo"><strong>STORIES<br>BEHIND<br>THE WORK.</strong></div></div>
+  <div class="page-no">01</div>
+</section>
+
+<section class="split" data-title="The Place">
+  <div class="copy reveal"><div class="eyebrow">02 · The Place</div><h2>สถานที่ที่ทำให้เราได้เรียนรู้</h2><p>การฝึกงาน ณ <b>กองพัฒนานักศึกษา</b> เปิดโอกาสให้เราได้สัมผัสการทำงานจริง ทั้งงานบริการ งานเอกสาร การประสานงาน และการสนับสนุนกิจกรรมที่เกี่ยวข้องกับนักศึกษา</p><p class="quote">“ทุกงานที่ได้ลงมือทำ คืออีกหนึ่งบทเรียนของการทำงานจริง”</p></div>
+  <div class="photo-grid"><div class="photo large"><img class="img" src="images/32__.jpg" alt="บรรยากาศการทำงาน"></div><div class="photo"><img class="img" src="images/31__.jpg" alt="การทำงานร่วมกับนักศึกษา"></div><div class="photo"><img class="img" src="images/06__19.jpg" alt="การทำงานภายในห้อง"></div></div>
+  <div class="page-no">02</div>
+</section>
+
+<section class="team-section" data-title="The Team">
+  <div class="page-no">03</div><div class="eyebrow reveal" style="color:#4DA3FF">03 · The Team</div><h2 class="reveal">สาดไปสมาชิก !</h2>
+  <div class="team-grid">
+    <div class="person reveal"><div class="num">01</div><h3>นายกวีวัธน์ ศรีทอง</h3><p>6612231013</p></div>
+    <div class="person reveal"><div class="num">02</div><h3>นายศาสตรา คงทับ</h3><p>6612231032</p></div>
+    <div class="person reveal"><div class="num">03</div><h3>นายธนายุทธ สีสุทธินา</h3><p>6612231024</p></div>
+    <div class="person reveal"><div class="num">04</div><h3>นายธันวา ภักดี</h3><p>6612231061</p></div>
+  </div>
+</section>
+
+<section class="split activity" data-title="Student Service">
+  <div class="copy reveal"><div class="eyebrow">04 · Student Service</div><h2>งานบริการ เอกสาร<br><span>สวัสดิการ และทุนการศึกษา</span></h2><p>มีส่วนร่วมในงานบริการและงานเอกสารที่เกี่ยวข้องกับนักศึกษา รวมถึงการสนับสนุนงานด้านสวัสดิการและทุนการศึกษา เช่น การจัดเตรียม ตรวจสอบ คัดแยก และจัดเก็บข้อมูล เพื่อให้การให้บริการเป็นไปอย่างเป็นระบบ</p><p class="quote">งานเบื้องหลังที่ช่วยให้การบริการนักศึกษาเดินหน้าได้อย่างราบรื่น</p></div>
+  <div class="photo-grid"><div class="photo large"><img class="img" src="images/01__.jpg" alt="งานบริการนักศึกษา"></div><div class="photo"><img class="img" src="images/02__.jpg" alt="การจัดการเอกสารและบริการ"></div><div class="photo"><img class="img" src="images/33__.jpg" alt="การทำงานภายในสำนักงาน"></div></div><div class="page-no">04</div>
+</section>
+
+<section class="full-photo" data-title="Graduation">
+  <div class="visual" style="background:linear-gradient(90deg,rgba(11,31,58,.93) 0%,rgba(11,31,58,.55) 48%,rgba(11,31,58,.18) 100%),url('images/37__.png') center/cover"></div>
+  <div class="content reveal"><div class="eyebrow" style="color:#7fc0ff">05 · Graduation</div><h2>เบื้องหลัง<br>วันสำคัญของบัณฑิต</h2><p>มีส่วนร่วมในการเตรียมความพร้อมสำหรับกิจกรรมที่เกี่ยวข้องกับพิธีพระราชทานปริญญาบัตร ทั้งการจัดระบบ ตรวจสอบข้อมูล ดูแลการรันคิว และช่วยประสานงานหน้างาน</p></div>
+  <div class="page-no">05</div>
+</section>
+
+<section class="design" data-title="Creative Work">
+  <div class="eyebrow reveal">06 · Creative Work</div><h2 class="reveal">งานออกแบบ<br>และสร้างสรรค์สื่อ</h2>
+  <p class="reveal design-text">นำทักษะด้านการออกแบบมาประยุกต์ใช้ในการจัดทำแนวทางเสื้อกีฬาและสื่อที่เกี่ยวข้องกับมหาวิทยาลัย พร้อมเรียนรู้การทำงานให้สอดคล้องกับอัตลักษณ์ขององค์กร</p>
+  <div class="design-board reveal"><div class="design-card one" style="background:url('images/28__.jpg') center/cover"></div><div class="design-card two" style="background:url('images/04__References_.jpg') center/cover"></div></div><div class="page-no">06</div>
+</section>
+
+<section class="split activity" data-title="Activities">
+  <div class="copy reveal"><div class="eyebrow">07 · Activities</div><h2>กิจกรรมและ<br><span>การสนับสนุนงาน</span></h2><p>นอกเหนือจากงานประจำ ยังได้มีส่วนร่วมในกิจกรรมของกองพัฒนานักศึกษาหลากหลายรูปแบบ ได้เข้าร่วมและสนับสนุนการจัดกิจกรรมถวายเทียนเนื่องในวันเข้าพรรษา งานสัมมนา และกิจกรรมภายในมหาวิทยาลัย</p></div>
+  <div class="photo-grid"><div class="photo large"><img class="img" src="images/30__.jpg" alt="กิจกรรมนักศึกษา"></div><div class="photo"><img class="img" src="images/20__.jpg" alt="กิจกรรมและการประสานงาน"></div><div class="photo"><img class="img" src="images/19__.jpg" alt="กิจกรรมร่วมกัน"></div></div><div class="page-no">07</div>
+</section>
+
+<section class="full-photo" data-title="Moving Equipment">
+  <div class="visual" style="background:linear-gradient(90deg,rgba(11,31,58,.94) 0%,rgba(11,31,58,.58) 50%,rgba(11,31,58,.12) 100%),url('images/25__.jpg') center/cover"></div>
+  <div class="content reveal"><div class="eyebrow" style="color:#7fc0ff">08 · Field Support</div><h2>ขนย้ายและ<br>จัดเรียงอุปกรณ์</h2><p>ร่วมสนับสนุนงานภาคสนาม ตั้งแต่การขนย้ายอุปกรณ์ การจัดเตรียมพื้นที่ และการจัดวางสิ่งของให้พร้อมสำหรับการดำเนินกิจกรรม เรียนรู้การทำงานที่ต้องอาศัยความร่วมมือและความรับผิดชอบร่วมกัน</p></div>
+  <div class="page-no">08</div>
+</section>
+
+<section class="split activity" data-title="Helmet Campaign">
+  <div class="copy reveal"><div class="eyebrow">09 · Safety Activity</div><h2>กิจกรรมมอบ<br><span>หมวกกันน็อค</span></h2><p>มีส่วนร่วมในการเตรียมความพร้อมและสนับสนุนกิจกรรมส่งเสริมความปลอดภัยทางถนนสำหรับนักศึกษา ทั้งการจัดเตรียมอุปกรณ์และช่วยอำนวยความสะดวกในพื้นที่กิจกรรม</p><p class="quote">จากงานเบื้องหลัง สู่กิจกรรมที่สร้างประโยชน์ให้กับนักศึกษา</p></div>
+  <div class="photo-grid"><div class="photo large"><img class="img" src="images/38__.jpg" alt="กิจกรรมมอบหมวกกันน็อค"></div><div class="photo"><img class="img" src="images/23__.jpg" alt="การเตรียมอุปกรณ์"></div><div class="photo"><img class="img" src="images/22__.jpg" alt="การขนย้ายอุปกรณ์"></div></div><div class="page-no">09</div>
+</section>
+
+<section class="team-section" data-title="Teamwork" style="background-image:linear-gradient(90deg,rgba(11,31,58,.98),rgba(11, 31, 58, 0.308)),url('images/18__2_2569.jpg');background-size:cover;background-position:center;">
+  <div class="page-no">10</div><div class="eyebrow reveal" style="color:#4DA3FF">10 · Teamwork</div><h2 class="reveal">งานหนึ่งงาน<br>สำเร็จได้ด้วยทีม</h2>
+  <p class="reveal" style="max-width:650px;margin-top:24px;color:#aebfd3;line-height:2">การแบ่งหน้าที่ การสื่อสาร และการช่วยเหลือกัน ทำให้เราเรียนรู้ว่าการทำงานจริงไม่ได้มีเพียงหน้าที่ของตัวเอง แต่คือการร่วมมือกันเพื่อให้เป้าหมายของงานสำเร็จ</p>
+</section>
+
+<section class="skills" data-title="What We Gained">
+  <div class="page-no">11</div><div class="eyebrow reveal">11 · What We Gained</div><h2 class="reveal">สิ่งที่เราได้รับกลับไป</h2>
+  <div class="skill-list">
+    <div class="skill reveal"><b>01 · Teamwork</b><span>ฝึกการแบ่งงาน วางแผน และช่วยเหลือกันภายในทีม</span></div>
+    <div class="skill reveal"><b>02 · Communication</b><span>พัฒนาทักษะการสื่อสารและประสานงานกับบุคลากรและนักศึกษา</span></div>
+    <div class="skill reveal"><b>03 · Responsibility</b><span>เรียนรู้ความรับผิดชอบ การตรงต่อเวลา และการจัดลำดับความสำคัญของงาน</span></div>
+    <div class="skill reveal"><b>04 · Problem Solving</b><span>ฝึกการปรับตัวและแก้ไขปัญหาเฉพาะหน้าจากสถานการณ์จริง</span></div>
+  </div>
+</section>
+
+<section class="memories" data-title="Memories">
+  <div class="page-no">12</div><div class="eyebrow reveal">12 · Memories</div><h2 class="reveal">ช่วงเวลาที่จะจดจำ</h2>
+  <div class="memory-wall"><div class="memory reveal"><img class="img" src="images/24__.jpg" alt="ช่วงเวลาการฝึกงาน"></div><div class="memory reveal"><img class="img" src="images/10__.jpg" alt="ช่วงเวลาการฝึกงาน"></div><div class="memory reveal"><img class="img" src="images/19__.jpg" alt="ช่วงเวลาการฝึกงาน"></div><div class="memory reveal"><img class="img" src="images/06__19.jpg" alt="ช่วงเวลาการฝึกงาน"></div></div>
+</section>
+
+<section class="closing" data-title="Thank You">
+  <div class="reveal"><div class="eyebrow" style="color:#9fd0ff">13 · Closing</div><h2>THANK<br>YOU.</h2><p>ขอบพระคุณกองพัฒนานักศึกษา และทุกคนที่มอบโอกาสให้เราได้เรียนรู้จากการทำงานจริง</p><div class="names">กวีวัธน์ ศรีทอง · ศาสตรา คงทับ · ธนายุทธ สีสุทธินา · ธันวา ภักดี</div></div>
+</section>
+</main>
+
+<div class="lightbox" id="lightbox"><button aria-label="ปิด">×</button><img id="lightboxImg" src="" alt=""></div>
+<script>
+const scroller=document.getElementById('presentation');
+const sections=[...document.querySelectorAll('section')];
+const nav=document.getElementById('nav');
+sections.forEach((s,i)=>{const b=document.createElement('button');b.title=s.dataset.title;b.onclick=()=>s.scrollIntoView({behavior:'smooth'});nav.appendChild(b)});
+const dots=[...nav.children];
+const io=new IntersectionObserver(entries=>{
+ entries.forEach(e=>{if(e.isIntersecting){sections.forEach(s=>s.classList.remove('active'));e.target.classList.add('active');const i=sections.indexOf(e.target);dots.forEach(d=>d.classList.remove('active'));dots[i].classList.add('active')}})
+},{root:scroller,threshold:.6});
+sections.forEach(s=>io.observe(s)); dots[0].classList.add('active'); sections[0].classList.add('active');
+let lock=false;
+scroller.addEventListener('wheel',e=>{
+ if(lock)return;
+ if(Math.abs(e.deltaY)<15)return;
+ e.preventDefault(); lock=true;
+ const i=sections.findIndex(s=>s.classList.contains('active'));
+ const next=e.deltaY>0?Math.min(i+1,sections.length-1):Math.max(i-1,0);
+ sections[next].scrollIntoView({behavior:'smooth'});
+ setTimeout(()=>lock=false,750);
+},{passive:false});
+document.addEventListener('keydown',e=>{
+ if(['ArrowDown','PageDown',' '].includes(e.key)){e.preventDefault(); const i=sections.findIndex(s=>s.classList.contains('active')); sections[Math.min(i+1,sections.length-1)].scrollIntoView({behavior:'smooth'})}
+ if(['ArrowUp','PageUp'].includes(e.key)){e.preventDefault(); const i=sections.findIndex(s=>s.classList.contains('active')); sections[Math.max(i-1,0)].scrollIntoView({behavior:'smooth'})}
+});
+
+const lb=document.getElementById('lightbox'), lbi=document.getElementById('lightboxImg');
+document.querySelectorAll('.img').forEach(img=>img.addEventListener('click',()=>{
+  if(img.closest('.fake-photo')) return;
+  lbi.src=img.src; lbi.alt=img.alt; lb.classList.add('show');
+}));
+lb.addEventListener('click',e=>{if(e.target===lb || e.target.tagName==='BUTTON') lb.classList.remove('show')});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('show')});
+</script>
+</body>
+</html>
